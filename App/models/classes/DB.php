@@ -13,7 +13,7 @@ class DB implements dbControl{
     
     private function __construct() {
         try{
-            $this->_pdo = new PDO('pgsql:host=35.202.123.83;port=5432;dbname=database','postgres','k#c+wiv@');
+            $this->_pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=sicfdb','postgres','postgres');
             //$this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die($e->getMessage());
