@@ -5,7 +5,7 @@
  * @author Ewerton
  */
 
-require_once 'dbControl.php';
+require_once '../interfaces/dbControl.php';
 
 class DB implements dbControl{
     private static $_instance = null;
