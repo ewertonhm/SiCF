@@ -1,19 +1,23 @@
 <?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
  * Description of DB
  *
  * @author Ewerton
  */
-
-require_once $GLOBALS['root'].'App/models/interfaces/dbControl.php';
-
-class DB implements dbControl{
+class DB {
     private static $_instance = null;
     private $_pdo, $_query, $_error = false, $_results, $_count = 0, $_lastInsertID = 'NULL';
     
     private function __construct() {
         try{
-            $this->_pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=sicfdb','postgres','postgres');
+            $this->_pdo = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=sicdp','postgres','postgres');
             //$this->_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -29,16 +33,16 @@ class DB implements dbControl{
     
     public function query($sql,$params = []){
         $this->_error = false;
-        
         if($this->_query = $this->_pdo->prepare($sql)){
             $x = 1;
-            if(count($params)){
+            if(is_array($params)){
                 foreach($params as $value){ 
                     $this->_query->bindValue($x, $value);
                     $x++;
                 }
+            } else {
+                $this->_query->bindValue($x, $params);
             }
-            
             if($this->_query->execute()){
                 $this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
                 $this->_count = $this->_query->rowCount();
@@ -73,7 +77,7 @@ class DB implements dbControl{
         }
     }
     
-    public function update($table,$id,$fields = []){
+    public function update($table,$id,$fields = [],$idField){
         $fieldString = '';
         $values = [];
         foreach($fields as $field => $value){
@@ -83,8 +87,7 @@ class DB implements dbControl{
         $fieldString = trim($fieldString);
         $fieldString = rtrim($fieldString,',');
         
-        $sql = "UPDATE {$table} SET {$fieldString} WHERE id = {$id}";
-        
+        $sql = "UPDATE {$table} SET {$fieldString} WHERE {$idField} = {$id}";
         if($this->query($sql,$values)){
             return true;
         } else {
@@ -93,8 +96,8 @@ class DB implements dbControl{
         
     }
     
-    public function delete($table,$id){        
-        $sql = "DELETE FROM {$table} WHERE id = {$id}";
+    public function delete($table,$id,$idField){        
+        $sql = "DELETE FROM {$table} WHERE {$idField} = {$id}";
         if(!$this->query($sql)->get_error()){
             return true;
         } else {
@@ -159,7 +162,6 @@ class DB implements dbControl{
         }
         
         $sql = "SELECT * FROM {$table}{$innerJoin}{$conditionString}{$order}{$limit}";
-        var_dump($sql);
 
         //  se o query rodar mas não tiver resultados vai retornar false
         // se o query tiver sucesso e tiver resultados vai retornar true
