@@ -3,41 +3,55 @@ require_once 'models/classes.php';
 require_once 'views/views.php';
 require_once 'controllers/controllers.php';
 
-$head = new Head('SiCF');
+$head = new Head('SiCF - Sistema de Controle Financeiro');
 $navbar = new Navbar();
 
-
-// CADASTRAR ----------------------------------------------------------------
-if(isset($_POST['btn-cadpat'])){
-    echo "<p>Patrimonio ".$_POST['codPatrimonio']." cadastrado.</p>";
-    $cadastro = new Cadastrar();
-    $cadastro->cadastrar($_POST['codPatrimonio']);
-    
-}
-
-if(isset($_POST['btn-cadastrar'])){
+// CADASTRAR DESPESA ----------------------------------------------------------------
+if(isset($_POST['btn-caddes'])){
     echo "<main role='main' class='container'>";
-        $cadastro = new Cadastrar();
+        $head->setTitle('Cadastrar Despesas');
+        echo "<h1>".$head->getTitle()."</h1>";
     echo "</main>"; 
 }
 
-// CONFERIR -----------------------------------------------------------------
-if(isset($_POST['btn-conferir'])){
+// CADASTRAR GANHO -----------------------------------------------------------------
+elseif(isset($_POST['btn-cadgan'])){
     echo "<main role='main' class='container'>";
+        $head->setTitle('Cadastrar Ganhos');
+        echo "<h1>".$head->getTitle()."</h1>";
+    echo "</main>"; 
+}
+
+// BAIXAR DESPESA -------------------------------------------------------------------
+elseif(isset($_POST['btn-baxdes'])){
+    echo "<main role='main' class='container'>";
+        $head->setTitle('Baixar Despesas');
+        echo "<h1>".$head->getTitle()."</h1>";
+    echo "</main>"; 
+}
+
+// SALDO -----------------------------------------------------------------
+elseif(isset($_POST['btn-saldo'])){
+    echo "<main role='main' class='container'>";
+        $head->setTitle('Saldo');
+        echo "<h1>".$head->getTitle()."</h1>";
+    echo "</main>"; 
+}
+
+// EXTRATO -----------------------------------------------------------------
+elseif(isset($_POST['btn-extrato'])){
+    echo "<main role='main' class='container'>";
+        $head->setTitle('Extrato');
+        echo "<h1>".$head->getTitle()."</h1>";
+    echo "</main>"; 
+}
+
+// INDEX ---------------------------------------------------------------------------
+else{
+    echo "<main role='main' class='container'>";
+        echo "<h2>".$head->getTitle()."</h2>";
         
-    echo "</main>"; 
-}
-
-// BAIXAR -------------------------------------------------------------------
-if(isset($_POST['btn-baxpat'])){
-    echo "<p> Patrimonio ".$_POST['codBPatrimonio']." baixado </p>";
-    $baixa = new Baixar();
-    $baixa->baixar($_POST['codBPatrimonio']);
-}
-
-if(isset($_POST['btn-baixar'])){
-    echo "<main role='main' class='container'>";
-        $baixa = new Baixar();
+    
     echo "</main>"; 
 }
 

@@ -6,7 +6,7 @@ class Footer {
         echo "  </div>
                 <footer class='footer'>
                     <div class='container'>
-                        <span class='text-muted'><b>Copyright 2019</b> Ewerton Henrique Marschalk</span>
+                        <span class='text-muted'><b>Copyright 2019</b> Ewerton H. Marschalk & Antonio A. Maguelniski</span>
                     </div>
                 </footer>
                 <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>

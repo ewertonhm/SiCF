@@ -5,3 +5,4 @@ require_once 'Footer.php';
 require_once 'Navbar.php';
 require_once 'htCadastrar.php';
 require_once 'htBaixar.php';
+require_once 'Grafico.php';
