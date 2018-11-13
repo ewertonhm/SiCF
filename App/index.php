@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        require_once 'models/classes.php';
-        // put your code here
-        ?>
-    </body>
-</html>
+<?php 
+
+    // server root
+    $_GLOBALS['root'] = 'http://sicf.local/';
+    // Controlers Folder
+    $controldir = 'controllers';
+    // Default Controller (index)
+    $default = 'login';
+    
+    if($_GET == NULL){
+        require_once $controldir.'/'.$default.'.php';
+        $default = new $default;
+    }
+    
+?>
